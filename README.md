@@ -18,16 +18,22 @@ A empresa está se mudando para uma **nova loja**, e este projeto acompanha essa
 ## Funcionalidades planejadas
 
 **Fase 1 — Site institucional**
-- [ ] Página inicial com destaque para os serviços e chamada para orçamento
-- [ ] Produtos (irrigação, bombas, material hidráulico)
-- [ ] Serviços (instalação de irrigação em jardins residenciais)
+- [ ] Início: apresentação, destaques e chamada para orçamento
+- [ ] Serviços: instalação e manutenção de irrigação em jardins residenciais
+- [ ] Como funciona: etapas do atendimento, do orçamento à manutenção
+- [ ] Projetos: portfólio de instalações com fotos (antes e depois) e vídeos incorporados do YouTube
+- [ ] Produtos: vitrine por categoria (irrigação, bombas, material hidráulico), sem preços, com botão "Consultar no WhatsApp"
+- [ ] Marcas com que trabalhamos
 - [ ] Sobre a empresa
-- [ ] Contato e localização da nova loja (mapa, horários)
-- [ ] Botão fixo de WhatsApp
-- [ ] Formulário "Solicite um orçamento"
+- [ ] Contato: endereço da nova loja, mapa, horários e área de atendimento
+- [ ] Botão fixo de WhatsApp em todas as páginas
+- [ ] "Solicite um orçamento" em destaque no topo, na página inicial e em página própria
 
 **Fase 2 — Inteligência artificial**
 - [ ] Assistente de orçamento com IA: conversa com o cliente, coleta as informações do jardim e envia um resumo pronto para a equipe
+
+**Ideias futuras**
+- [ ] Dicas de irrigação (artigos curtos para ajudar o site a aparecer no Google)
 
 **Lançamento**
 - [ ] Publicação em endereço provisório para testes
@@ -48,6 +54,7 @@ A definir.
 - Endereço, telefone, WhatsApp e horário da nova loja
 - Principais produtos e marcas representadas
 - Área de atendimento para instalações
+- Autorização dos clientes para mostrar fotos e vídeos dos projetos
 
 ---
 
