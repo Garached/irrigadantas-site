@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* Cores e fontes da marca. Viram classes do Tailwind:
+   ex.: bg-brand-600, text-water-500, font-sans */
+@theme {
+  --color-brand-50: #f0f9f1;
+  --color-brand-100: #dcf1de;
+  --color-brand-600: #2e8540;
+  --color-brand-700: #246a33;
+  --color-brand-800: #1d542a;
+  --color-brand-900: #163f20;
+
+  --color-water-50: #eff8ff;
+  --color-water-500: #1f8fd6;
+  --color-water-700: #13659c;
+
+  --color-whatsapp: #25d366;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  @apply bg-white text-zinc-800 font-sans;
+}
