@@ -11,6 +11,7 @@ export function Footer() {
           <p className="text-lg font-bold text-white">{name}</p>
           <p className="mt-2 text-sm">Irrigação, bombas e material hidráulico.</p>
           <p className="mt-2 text-sm">{fullAddress()}</p>
+          <p className="text-sm">{siteConfig.address.reference}</p>
         </div>
 
         <div>

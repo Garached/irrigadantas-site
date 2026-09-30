@@ -39,6 +39,7 @@ npm run lint    # verificação de código (ESLint)
 - `src/components/forms/` — formulários.
 - `src/lib/site-config.ts` — **fonte única** dos dados da empresa, incluindo marcas e as fotos/vídeo da página `/projetos`.
 - `public/images/projetos/` — fotos da página de projetos.
+- `public/images/loja/` — fotos da fachada da nova loja (projeto arquitetônico).
 - `src/lib/quote-schema.ts` — campos e regras do formulário de orçamento.
 
 ## Convenções de código

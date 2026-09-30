@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { ContactInfo } from "@/components/sections/ContactInfo";
 import { LocationMap } from "@/components/sections/LocationMap";
 import { QuoteForm } from "@/components/forms/QuoteForm";
+import { StorefrontPhotos } from "@/components/sections/StorefrontPhotos";
 
 export const metadata: Metadata = {
   title: "Contato e localização",
@@ -17,6 +18,11 @@ export default function ContatoPage() {
       <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2">
         <ContactInfo />
         <LocationMap />
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <h2 className="mb-6 text-2xl font-bold text-brand-900">Nossa nova loja</h2>
+        <StorefrontPhotos />
       </section>
 
       <section className="mx-auto max-w-3xl px-4 pb-16">

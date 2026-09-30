@@ -1,4 +1,4 @@
-import { fullAddress, siteConfig, whatsappUrl } from "@/lib/site-config";
+import { fullAddress, mapsUrl, siteConfig, whatsappUrl } from "@/lib/site-config";
 
 export function ContactInfo() {
   const { contact, hours } = siteConfig;
@@ -8,6 +8,10 @@ export function ContactInfo() {
       <div>
         <h2 className="text-xl font-bold text-brand-900">Endereço</h2>
         <p className="mt-1">{fullAddress()}</p>
+        <p>{siteConfig.address.reference}</p>
+        <a href={mapsUrl()} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block text-brand-700 underline">
+          Abrir no Google Maps
+        </a>
       </div>
 
       <div>
