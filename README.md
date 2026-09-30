@@ -18,6 +18,16 @@ A empresa está se mudando para uma **nova loja**, e este projeto acompanha essa
 ## Funcionalidades planejadas
 
 **Fase 1 — Site institucional**
+<<<<<<< HEAD
+- [ ] Página inicial com destaque para os serviços e chamada para orçamento
+- [ ] Produtos (irrigação, bombas, material hidráulico)
+- [ ] Serviços (instalação de irrigação em jardins residenciais)
+- [ ] Projetos realizados: fotos e vídeo de projetos já instalados (sem fotos de "antes e depois")
+- [ ] Sobre a empresa
+- [ ] Contato e localização da nova loja (mapa, horários)
+- [ ] Botão fixo de WhatsApp
+- [ ] Formulário "Solicite um orçamento", enviado por e-mail (com WhatsApp e telefones como alternativa)
+=======
 - [ ] Início: apresentação, destaques e chamada para orçamento
 - [ ] Serviços: instalação e manutenção de irrigação em jardins residenciais
 - [ ] Como funciona: etapas do atendimento, do orçamento à manutenção
@@ -28,6 +38,7 @@ A empresa está se mudando para uma **nova loja**, e este projeto acompanha essa
 - [ ] Contato: endereço da nova loja, mapa, horários e área de atendimento
 - [ ] Botão fixo de WhatsApp em todas as páginas
 - [ ] "Solicite um orçamento" em destaque no topo, na página inicial e em página própria
+>>>>>>> origin/main
 
 **Fase 2 — Inteligência artificial**
 - [ ] Assistente de orçamento com IA: conversa com o cliente, coleta as informações do jardim e envia um resumo pronto para a equipe
@@ -47,11 +58,36 @@ Este projeto é desenvolvido com o **Claude Code** como ferramenta principal. As
 
 ## Tecnologias
 
-A definir.
+- [Next.js](https://nextjs.org) (App Router) + TypeScript
+- [Tailwind CSS](https://tailwindcss.com)
+- [Resend](https://resend.com) para envio dos pedidos de orçamento por e-mail
+- Hospedagem na [Vercel](https://vercel.com)
+
+## Como rodar localmente
+
+1. Instale o [Node.js](https://nodejs.org) (versão LTS)
+2. `npm install`
+3. Copie `.env.example` para `.env.local` e preencha as variáveis (nunca faça commit desse arquivo)
+4. `npm run dev` e abra http://localhost:3000
+
+## Pedidos de orçamento
+
+Os pedidos feitos pelo formulário do site são enviados **por e-mail**, pelo serviço Resend. O e-mail que recebe os pedidos é definido na variável de ambiente `QUOTE_TO_EMAIL` (veja `.env.example`), então pode ser trocado sem mexer no código. Se o envio falhar, o site mostra o WhatsApp e os telefones da loja como alternativa.
+
+## Página de projetos
+
+A página `/projetos` mostra fotos e vídeo de projetos já realizados (não haverá fotos de "antes e depois"):
+
+- **Jardins residenciais:** 2 ou 3 fotos de jardins com irrigação instalada
+- **Projeto de irrigação maior:** uma foto, um vídeo do YouTube e outra foto
+
+Enquanto as fotos e o vídeo não chegam, a página mostra blocos cinza ("Foto do projeto" e "Vídeo do projeto") no mesmo tamanho do conteúdo final. Os caminhos das fotos e o link do vídeo ficam em `src/lib/site-config.ts`.
 
 ## A confirmar
 
-- Endereço, telefone, WhatsApp e horário da nova loja
+- Telefones — (16) 3335-6060 e (16) 3335-6161 — e WhatsApp — (16) 3335-6161: confirmar se continuam os mesmos na loja nova
+- Endereço e horário da nova loja
+- Fotos e vídeo reais dos projetos realizados
 - Principais produtos e marcas representadas
 - Área de atendimento para instalações
 - Autorização dos clientes para mostrar fotos e vídeos dos projetos
