@@ -18,27 +18,16 @@ A empresa está se mudando para uma **nova loja**, e este projeto acompanha essa
 ## Funcionalidades planejadas
 
 **Fase 1 — Site institucional**
-<<<<<<< HEAD
-- [ ] Página inicial com destaque para os serviços e chamada para orçamento
-- [ ] Produtos (irrigação, bombas, material hidráulico)
-- [ ] Serviços (instalação de irrigação em jardins residenciais)
-- [ ] Projetos realizados: fotos e vídeo de projetos já instalados (sem fotos de "antes e depois")
-- [ ] Sobre a empresa
-- [ ] Contato e localização da nova loja (mapa, horários)
-- [ ] Botão fixo de WhatsApp
-- [ ] Formulário "Solicite um orçamento", enviado por e-mail (com WhatsApp e telefones como alternativa)
-=======
 - [ ] Início: apresentação, destaques e chamada para orçamento
 - [ ] Serviços: instalação e manutenção de irrigação em jardins residenciais
 - [ ] Como funciona: etapas do atendimento, do orçamento à manutenção
-- [ ] Projetos: portfólio de instalações com fotos (antes e depois) e vídeos incorporados do YouTube
+- [ ] Projetos: fotos e vídeos incorporados do YouTube de projetos já realizados (sem fotos de "antes e depois")
 - [ ] Produtos: vitrine por categoria (irrigação, bombas, material hidráulico), sem preços, com botão "Consultar no WhatsApp"
 - [ ] Marcas com que trabalhamos
 - [ ] Sobre a empresa
 - [ ] Contato: endereço da nova loja, mapa, horários e área de atendimento
 - [ ] Botão fixo de WhatsApp em todas as páginas
-- [ ] "Solicite um orçamento" em destaque no topo, na página inicial e em página própria
->>>>>>> origin/main
+- [ ] "Solicite um orçamento" em destaque no topo, na página inicial e em página própria, enviado por e-mail (com WhatsApp e telefones como alternativa)
 
 **Fase 2 — Inteligência artificial**
 - [ ] Assistente de orçamento com IA: conversa com o cliente, coleta as informações do jardim e envia um resumo pronto para a equipe
@@ -50,6 +39,7 @@ A empresa está se mudando para uma **nova loja**, e este projeto acompanha essa
 - [ ] Publicação em endereço provisório para testes
 - [ ] Aprovação do conteúdo pela empresa
 - [ ] Apontamento do domínio irrigadantas.com.br para o novo site
+  - ⚠️ Na configuração de DNS, alterar **apenas os registros do site** (A/CNAME) para a Vercel e **manter os registros de e-mail (MX)** como estão, para não interromper o e-mail da empresa (irrigadantas@irrigadantas.com.br)
 - [ ] Criação/atualização do Perfil da Empresa no Google
 
 ## Processo de desenvolvimento com IA
@@ -83,10 +73,17 @@ A página `/projetos` mostra fotos e vídeo de projetos já realizados (não hav
 
 Enquanto as fotos e o vídeo não chegam, a página mostra blocos cinza ("Foto do projeto" e "Vídeo do projeto") no mesmo tamanho do conteúdo final. Os caminhos das fotos e o link do vídeo ficam em `src/lib/site-config.ts`.
 
+## Nova loja
+
+- **Endereço:** Rua Dr. Walter Medeiros Mauro, 363 – Araraquara/SP (esquina com a Av. Queiroz Filho)
+- **Horário:** segunda a sexta, das 8h às 18h; sábado, das 8h às 12h
+- **Fotos da fachada (provisórias):** são imagens do projeto arquitetônico, não fotos da loja pronta. Devem ser trocadas por fotos reais quando a loja estiver pronta. Ficam em `public/images/loja/` (`fachada_principal.jpeg`, `fachada_estacionamento.jpeg` e `fachada_lateral.jpeg`) e aparecem na página inicial (seção "Nossa nova loja") e na página de contato, com a etiqueta "Nova loja em breve". Se um arquivo faltar, o site mostra um bloco cinza no lugar.
+
 ## A confirmar
 
 - Telefones — (16) 3335-6060 e (16) 3335-6161 — e WhatsApp — (16) 3335-6161: confirmar se continuam os mesmos na loja nova
-- Endereço e horário da nova loja
+- Bairro e CEP da nova loja
+- Fotos reais da fachada, para substituir as imagens provisórias do projeto arquitetônico
 - Fotos e vídeo reais dos projetos realizados
 - Principais produtos e marcas representadas
 - Área de atendimento para instalações

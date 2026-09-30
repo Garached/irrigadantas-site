@@ -27,15 +27,30 @@ export const siteConfig = {
   },
 
   address: {
-    street: "Endereço da nova loja — A CONFIRMAR",
+    street: "Rua Dr. Walter Medeiros Mauro, 363",
+    reference: "Esquina com a Av. Queiroz Filho",
+    neighborhood: "A CONFIRMAR", // bairro
+    zip: "A CONFIRMAR", // CEP, formato "00000-000"
     city: "Araraquara",
     state: "SP",
   },
 
   hours: [
-    { days: "Segunda a sexta", time: "A CONFIRMAR" },
-    { days: "Sábado", time: "A CONFIRMAR" },
+    { days: "Segunda a sexta", time: "8h às 18h" },
+    { days: "Sábado", time: "8h às 12h" },
   ],
+
+  // Fotos da fachada (imagens do projeto arquitetônico da nova loja).
+  // Se o arquivo não existir em public/, o site mostra um bloco cinza no lugar.
+  // O caminho precisa bater exatamente com o nome e a extensão do arquivo.
+  storefront: {
+    main: { src: "/images/loja/fachada_principal.jpeg", alt: "Projeto da fachada principal da nova loja da Irriga Dantas" },
+    parking: {
+      src: "/images/loja/fachada_estacionamento.jpeg",
+      alt: "Projeto do estacionamento da nova loja da Irriga Dantas, com vagas e portão",
+    },
+    side: { src: "/images/loja/fachada_lateral.jpeg", alt: "Projeto da fachada lateral da nova loja da Irriga Dantas, vista do alto na esquina" },
+  },
 
   // Marcas representadas. TODO: preencher com a empresa (README, "A confirmar").
   // Exemplo: brands: ["Marca A", "Marca B"]
@@ -71,9 +86,23 @@ export const siteConfig = {
   ],
 };
 
+const isConfirmed = (value: string) => value !== "" && !value.includes("A CONFIRMAR");
+
+// Endereço em uma linha. Bairro e CEP só aparecem depois de confirmados.
+// Ex.: "Rua Dr. Walter Medeiros Mauro, 363 – Araraquara/SP"
 export function fullAddress() {
+  const { street, neighborhood, zip, city, state } = siteConfig.address;
+  const parts = [street];
+  if (isConfirmed(neighborhood)) parts.push(neighborhood);
+  parts.push(`${city}/${state}`);
+  const line = parts.join(" – ");
+  return isConfirmed(zip) ? `${line} – CEP ${zip}` : line;
+}
+
+// Link que abre o endereço no app/site do Google Maps.
+export function mapsUrl() {
   const { street, city, state } = siteConfig.address;
-  return `${street}, ${city} - ${state}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${street}, ${city} - ${state}`)}`;
 }
 
 // Monta o link do WhatsApp que abre a conversa com a mensagem já escrita.
