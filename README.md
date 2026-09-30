@@ -66,12 +66,25 @@ Os pedidos feitos pelo formulário do site são enviados **por e-mail**, pelo se
 
 ## Página de projetos
 
-A página `/projetos` mostra fotos e vídeo de projetos já realizados (não haverá fotos de "antes e depois"):
+A página `/projetos` mostra projetos já realizados, separados em duas abas: **Agrícola e Produção** (aberta por padrão) e **Residencial e Comercial**. Não haverá fotos de "antes e depois".
 
-- **Jardins residenciais:** 2 ou 3 fotos de jardins com irrigação instalada
-- **Projeto de irrigação maior:** uma foto, um vídeo do YouTube e outra foto
+**Agrícola e Produção**
+1. Irrigação para Viveiro de Mudas de Eucalipto (fotos e vídeo, em destaque)
+2. Nebulização para Estufas (fotos e vídeo)
+3. Microaspersão para Estufas
+4. Sistema de Filtragem e Abastecimento
+5. Montagem de Tanque de Lona
+6. Casa de Bombas e Automação para Irrigação
+7. Casa de Bombas e Sistema de Fertirrigação
 
-Enquanto as fotos e o vídeo não chegam, a página mostra blocos cinza ("Foto do projeto" e "Vídeo do projeto") no mesmo tamanho do conteúdo final. Os caminhos das fotos e o link do vídeo ficam em `src/lib/site-config.ts`.
+**Residencial e Comercial**
+
+8. Irrigação de Jardim
+9. Irrigação de Jardim Vertical em Loja
+
+Cada projeto mostra até 3 fotos e um botão "Ver todas as fotos", que abre uma galeria em tela cheia. Nos projetos com vídeo, o vídeo do YouTube é o elemento principal, com as fotos menores abaixo; os projetos só com fotos aparecem em duas colunas.
+
+As fotos ficam em `public/images/projetos/<pasta-do-projeto>/` (ex.: `viveiro-eucalipto/`), numeradas com 2 dígitos (`01.jpg`, `02.jpg`…). Os dados de cada projeto (título, categoria, fotos, link do vídeo e descrição) ficam em `src/lib/site-config.ts`; as 3 primeiras fotos da lista são as que aparecem no cartão. Enquanto não houver fotos ou vídeo, a página mostra blocos cinza no lugar.
 
 ## Nova loja
 
@@ -84,7 +97,8 @@ Enquanto as fotos e o vídeo não chegam, a página mostra blocos cinza ("Foto d
 - Telefones — (16) 3335-6060 e (16) 3335-6161 — e WhatsApp — (16) 3335-6161: confirmar se continuam os mesmos na loja nova
 - Bairro e CEP da nova loja
 - Fotos reais da fachada, para substituir as imagens provisórias do projeto arquitetônico
-- Fotos e vídeo reais dos projetos realizados
+- Fotos e vídeos dos projetos realizados
+- Descrições dos 9 projetos (hoje estão "A CONFIRMAR")
 - Principais produtos e marcas representadas
 - Área de atendimento para instalações
 - Autorização dos clientes para mostrar fotos e vídeos dos projetos

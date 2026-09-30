@@ -56,26 +56,6 @@ export const siteConfig = {
   // Exemplo: brands: ["Marca A", "Marca B"]
   brands: [] as string[],
 
-  // Página /projetos. Campo vazio ("") = a página mostra um bloco cinza no lugar.
-  // Fotos: coloque o arquivo em public/images/projetos/ e preencha o "src"
-  //   (ex.: "/images/projetos/jardim-1.jpg"). Formato ideal: 4:3 (deitada).
-  // Vídeo: cole o link do YouTube (youtube.com/watch?v=... ou youtu.be/...).
-  // Para ter só 2 fotos de jardins, apague uma das linhas de "gardens".
-  projects: {
-    gardens: [
-      { src: "", alt: "Jardim residencial com irrigação instalada" },
-      { src: "", alt: "Jardim residencial com irrigação instalada" },
-      { src: "", alt: "Jardim residencial com irrigação instalada" },
-    ],
-    featured: {
-      title: "Projeto de irrigação de grande porte",
-      description: "Descrição do projeto — A CONFIRMAR.",
-      photoBefore: { src: "", alt: "Projeto de irrigação de grande porte" },
-      videoUrl: "",
-      photoAfter: { src: "", alt: "Projeto de irrigação de grande porte" },
-    },
-  },
-
   nav: [
     { href: "/", label: "Início" },
     { href: "/produtos", label: "Produtos" },
@@ -116,3 +96,105 @@ export function youtubeEmbedUrl(url: string) {
   const match = url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
   return match ? `https://www.youtube-nocookie.com/embed/${match[1]}` : null;
 }
+
+// ---------------------------------------------------------------------------
+// Página /projetos
+// ---------------------------------------------------------------------------
+
+export const projectCategories = [
+  { id: "agricola", label: "Agrícola e Produção" },
+  { id: "residencial", label: "Residencial e Comercial" },
+] as const;
+
+export type ProjectCategory = (typeof projectCategories)[number]["id"];
+
+export type Project = {
+  slug: string; // nome da pasta em public/images/projetos/
+  title: string;
+  category: ProjectCategory;
+  description: string;
+  featured?: boolean; // aparece com destaque (fundo e título maiores)
+  hasVideo?: boolean; // projeto com vídeo: o vídeo vira o elemento principal
+  videoUrl?: string; // link do YouTube; vazio = retângulo cinza "Vídeo do projeto"
+  photos: string[]; // nomes dos arquivos, ex.: ["01.jpg", "02.jpg"]
+};
+
+// COMO ADICIONAR FOTOS
+// 1. Coloque as fotos na pasta do projeto: public/images/projetos/<slug>/
+//    numeradas com 2 dígitos: 01.jpg, 02.jpg, 03.jpg...
+// 2. Liste os nomes em "photos", na ordem desejada.
+//    As 3 PRIMEIRAS aparecem no cartão; a galeria "Ver todas as fotos" mostra todas.
+// Enquanto "photos" estiver vazia (ou o arquivo não existir), aparecem blocos cinza.
+export const projects: Project[] = [
+  // Agrícola e Produção
+  {
+    slug: "viveiro-eucalipto",
+    title: "Irrigação para Viveiro de Mudas de Eucalipto",
+    category: "agricola",
+    description: "A CONFIRMAR",
+    featured: true,
+    hasVideo: true,
+    videoUrl: "",
+    photos: [],
+  },
+  {
+    slug: "nebulizacao-estufas",
+    title: "Nebulização para Estufas",
+    category: "agricola",
+    description: "A CONFIRMAR",
+    hasVideo: true,
+    videoUrl: "",
+    photos: [],
+  },
+  {
+    slug: "microaspersao-estufas",
+    title: "Microaspersão para Estufas",
+    category: "agricola",
+    description: "A CONFIRMAR",
+    photos: [],
+  },
+  {
+    slug: "filtragem-abastecimento",
+    title: "Sistema de Filtragem e Abastecimento",
+    category: "agricola",
+    description: "A CONFIRMAR",
+    photos: [],
+  },
+  {
+    slug: "tanque-lona",
+    title: "Montagem de Tanque de Lona",
+    category: "agricola",
+    description: "A CONFIRMAR",
+    photos: [],
+  },
+  {
+    slug: "casa-bombas-automacao",
+    title: "Casa de Bombas e Automação para Irrigação",
+    category: "agricola",
+    description: "A CONFIRMAR",
+    photos: [],
+  },
+  {
+    slug: "casa-bombas-fertirrigacao",
+    title: "Casa de Bombas e Sistema de Fertirrigação",
+    category: "agricola",
+    description: "A CONFIRMAR",
+    photos: [],
+  },
+
+  // Residencial e Comercial
+  {
+    slug: "jardim",
+    title: "Irrigação de Jardim",
+    category: "residencial",
+    description: "A CONFIRMAR",
+    photos: [],
+  },
+  {
+    slug: "jardim-vertical-loja",
+    title: "Irrigação de Jardim Vertical em Loja",
+    category: "residencial",
+    description: "A CONFIRMAR",
+    photos: [],
+  },
+];
