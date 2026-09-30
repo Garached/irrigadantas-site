@@ -37,8 +37,9 @@ npm run lint    # verificação de código (ESLint)
 - `src/components/sections/` — blocos grandes das páginas (Hero, CtaQuote, ContactInfo...).
 - `src/components/ui/` — peças pequenas reutilizáveis (ButtonLink, Card, PageHeader, YouTubeEmbed).
 - `src/components/forms/` — formulários.
-- `src/lib/site-config.ts` — **fonte única** dos dados da empresa, incluindo marcas e as fotos/vídeo da página `/projetos`.
-- `public/images/projetos/` — fotos da página de projetos.
+- `src/components/projects/` — página de projetos: abas, cartões e galeria em tela cheia.
+- `src/lib/site-config.ts` — **fonte única** dos dados da empresa, incluindo marcas, fotos da fachada e os projetos da página `/projetos`.
+- `public/images/projetos/<slug>/` — fotos de cada projeto, numeradas (`01.jpg`, `02.jpg`…). Os projetos ficam em `projects`, no `site-config.ts`.
 - `public/images/loja/` — fotos da fachada da nova loja (projeto arquitetônico).
 - `src/lib/quote-schema.ts` — campos e regras do formulário de orçamento.
 

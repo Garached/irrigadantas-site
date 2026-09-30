@@ -1,60 +1,68 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { ProjectPhoto } from "@/components/ui/ProjectPhoto";
-import { YouTubeEmbed } from "@/components/ui/YouTubeEmbed";
 import { CtaQuote } from "@/components/sections/CtaQuote";
-import { siteConfig } from "@/lib/site-config";
+import { ProjectCard } from "@/components/projects/ProjectCard";
+import { ProjectTabs } from "@/components/projects/ProjectTabs";
+import { publicFileExists } from "@/lib/public-file";
+import { projectCategories, projects, type Project } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Projetos realizados",
-  description: "Jardins residenciais e projetos de irrigação instalados pela Irriga Dantas em Araraquara e região.",
+  description:
+    "Projetos de irrigação agrícola, estufas, casas de bombas, jardins residenciais e comerciais realizados pela Irriga Dantas.",
 };
 
-// Fotos e vídeo vêm de siteConfig.projects (src/lib/site-config.ts).
+// Monta a lista de fotos de um projeto. Arquivo que não existe em public/ vira src vazio (bloco cinza).
+function projectPhotos(project: Project) {
+  return project.photos.map((file, i) => {
+    const src = `/images/projetos/${project.slug}/${file}`;
+    return { src: publicFileExists(src) ? src : "", alt: `${project.title} — foto ${i + 1}` };
+  });
+}
+
+function CategoryProjects({ items }: { items: Project[] }) {
+  // Projetos com vídeo ocupam a largura toda; os demais ficam em 2 colunas.
+  const withVideo = items.filter((p) => p.hasVideo);
+  const photoOnly = items.filter((p) => !p.hasVideo);
+
+  return (
+    <div className="space-y-8">
+      {withVideo.map((project) => (
+        <ProjectCard key={project.slug} project={project} photos={projectPhotos(project)} />
+      ))}
+      {photoOnly.length > 0 && (
+        <div className="grid gap-8 md:grid-cols-2">
+          {photoOnly.map((project) => (
+            <ProjectCard key={project.slug} project={project} photos={projectPhotos(project)} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Projetos e fotos vêm de src/lib/site-config.ts.
 export default function ProjetosPage() {
-  const { gardens, featured } = siteConfig.projects;
+  const panels = projectCategories.map((category) => ({
+    id: category.id,
+    label: category.label,
+    content: (
+      <>
+        <h2 className="sr-only">{category.label}</h2>
+        <CategoryProjects items={projects.filter((p) => p.category === category.id)} />
+      </>
+    ),
+  }));
 
   return (
     <>
       <PageHeader
         title="Projetos realizados"
-        subtitle="Alguns dos jardins e projetos de irrigação que já instalamos."
+        subtitle="Conheça alguns dos projetos de irrigação que já realizamos."
       />
-
       <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold text-brand-900">Jardins residenciais</h2>
-        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {gardens.map((photo, i) => (
-            <ProjectPhoto
-              key={i}
-              src={photo.src}
-              alt={photo.alt}
-              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            />
-          ))}
-        </div>
+        <ProjectTabs panels={panels} />
       </section>
-
-      <section className="bg-brand-50">
-        <div className="mx-auto max-w-4xl space-y-6 px-4 py-12">
-          <div>
-            <h2 className="text-2xl font-bold text-brand-900">{featured.title}</h2>
-            <p className="mt-2 text-zinc-600">{featured.description}</p>
-          </div>
-          <ProjectPhoto
-            src={featured.photoBefore.src}
-            alt={featured.photoBefore.alt}
-            sizes="(min-width: 896px) 896px, 100vw"
-          />
-          <YouTubeEmbed url={featured.videoUrl} title={`Vídeo: ${featured.title}`} />
-          <ProjectPhoto
-            src={featured.photoAfter.src}
-            alt={featured.photoAfter.alt}
-            sizes="(min-width: 896px) 896px, 100vw"
-          />
-        </div>
-      </section>
-
       <CtaQuote />
     </>
   );
