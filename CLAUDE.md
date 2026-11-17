@@ -6,8 +6,9 @@
 
 Site institucional da **Irriga Dantas**, loja de irrigação, bombas e material hidráulico em Araraquara (SP). Substitui um site antigo (FrontPage, anos 90) e acompanha a mudança para uma **nova loja**. Domínio: irrigadantas.com.br.
 
-- **Público:** clientes da região, a maioria acessando pelo celular.
-- **Objetivo principal:** gerar contatos e pedidos de orçamento, principalmente de irrigação de jardins residenciais.
+- **Público:** clientes de Araraquara e região, a maioria acessando pelo celular. O público principal são **produtores e empresas** (projetos agrícolas e de produção); o **residencial e comercial** (jardins) é a segunda linha.
+- **Objetivo principal:** gerar contatos e pedidos de orçamento, principalmente de projetos agrícolas e de produção (viveiros, estufas, filtragem e abastecimento, tanques de lona, casas de bombas e automação, fertirrigação), mantendo o atendimento residencial e comercial (jardins e jardins verticais).
+- **Ao escrever textos:** fale primeiro com produtores e empresas e cite o residencial depois. Textos que servem aos dois públicos (como "Como funciona" e a faixa de orçamento) devem ser genéricos, sem assumir que o cliente tem um jardim.
 - **Fase 1:** site institucional (início, produtos, serviços, projetos, sobre, contato/mapa, WhatsApp fixo, formulário de orçamento).
 - **Fase 2:** assistente de orçamento com IA.
 - Veja o `README.md` para o checklist completo e os itens "A confirmar".
@@ -35,11 +36,12 @@ npm run lint    # verificação de código (ESLint)
 - `src/app/orcamento/actions.ts` — Server Action que envia o e-mail do orçamento.
 - `src/components/layout/` — Header, Footer, WhatsAppButton.
 - `src/components/sections/` — blocos grandes das páginas (Hero, CtaQuote, ContactInfo...).
-- `src/components/ui/` — peças pequenas reutilizáveis (ButtonLink, Card, PageHeader, YouTubeEmbed).
+- `src/components/ui/` — peças pequenas reutilizáveis (ButtonLink, Card, PageHeader, ProjectPhoto, YouTubeEmbed).
 - `src/components/forms/` — formulários.
-- `src/components/projects/` — página de projetos: abas, cartões e galeria em tela cheia.
-- `src/lib/site-config.ts` — **fonte única** dos dados da empresa, incluindo marcas, fotos da fachada e os projetos da página `/projetos`.
-- `public/images/projetos/<slug>/` — fotos de cada projeto, numeradas (`01.jpg`, `02.jpg`…). Os projetos ficam em `projects`, no `site-config.ts`.
+- `src/components/projects/` — página de projetos: cartões e galeria em tela cheia. As abas (`ProjectTabs`) também são usadas em `/servicos`.
+- `src/lib/site-config.ts` — **fonte única** dos dados da empresa, incluindo marcas, fotos da fachada, os serviços da página `/servicos` (`services`) e os projetos da página `/projetos` (`projects`). Serviços e projetos usam as mesmas categorias (`projectCategories`: "Agrícola e Produção" e "Residencial e Comercial").
+- `src/lib/public-file.ts` — confere, no servidor, se uma foto existe em `public/` (sem foto, o site mostra um bloco cinza).
+- `public/images/projetos/<slug>/` — fotos de cada projeto, numeradas (`01.jpg`, `02.jpg`…). A primeira foto do projeto indicado em `heroProjectSlug` (hoje o Viveiro de Mudas de Eucalipto) é a imagem principal da página inicial.
 - `public/images/loja/` — fotos da fachada da nova loja (projeto arquitetônico).
 - `src/lib/quote-schema.ts` — campos e regras do formulário de orçamento.
 

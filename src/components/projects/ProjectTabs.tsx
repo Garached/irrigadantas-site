@@ -11,7 +11,13 @@ type Panel = {
   content: React.ReactNode;
 };
 
-export function ProjectTabs({ panels }: { panels: Panel[] }) {
+type Props = {
+  panels: Panel[];
+  // Nome das abas para leitores de tela (ex.: "Categorias de serviços").
+  label?: string;
+};
+
+export function ProjectTabs({ panels, label = "Categorias de projetos" }: Props) {
   const [active, setActive] = useState(panels[0].id);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -26,7 +32,7 @@ export function ProjectTabs({ panels }: { panels: Panel[] }) {
 
   return (
     <div>
-      <div role="tablist" aria-label="Categorias de projetos" className="flex flex-wrap gap-2">
+      <div role="tablist" aria-label={label} className="flex flex-wrap gap-2">
         {panels.map((panel, i) => {
           const selected = panel.id === active;
           return (

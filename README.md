@@ -12,15 +12,39 @@ A empresa está se mudando para uma **nova loja**, e este projeto acompanha essa
 
 - Apresentar a empresa de forma moderna, rápida e pensada para celular
 - Centralizar informações corretas e atualizadas (novo endereço, telefone, WhatsApp, horários)
-- Gerar contatos e pedidos de orçamento, principalmente para irrigação residencial de jardins
+- Gerar contatos e pedidos de orçamento, principalmente de **projetos agrícolas e de produção** (viveiros, estufas, fertirrigação, casas de bombas), mantendo o **atendimento residencial e comercial** (jardins) como segunda linha
 - Manter o domínio irrigadantas.com.br
+
+## Posicionamento
+
+O site foi criado inicialmente com foco em irrigação de jardins residenciais, mas o principal público da empresa hoje são **projetos agrícolas e de produção**, como mostra a página `/projetos`. Por isso, o site fala primeiro com produtores e empresas, e o atendimento residencial e comercial aparece como segunda linha.
+
+**Agrícola e Produção** (público principal)
+- Irrigação para viveiros
+- Nebulização para estufas
+- Microaspersão para estufas
+- Sistemas de filtragem e abastecimento
+- Montagem de tanques de lona
+- Casas de bombas e automação
+- Fertirrigação
+
+**Residencial e Comercial**
+- Irrigação de jardins
+- Jardins verticais
+
+A loja (bombas e material hidráulico) continua atendendo os dois públicos.
+
+Onde isso aparece no site:
+- **Página inicial:** o destaque principal fala com produtores e empresas. A imagem principal é a primeira foto do projeto "Irrigação para Viveiro de Mudas de Eucalipto" (definido em `heroProjectSlug`, no `site-config.ts`); enquanto não houver foto, aparece um bloco cinza.
+- **Serviços:** abas "Agrícola e Produção" (aberta por padrão) e "Residencial e Comercial". A lista de serviços fica em `services`, no `site-config.ts`.
+- **Formulário de orçamento:** campo "Tipo de projeto" com perguntas diferentes para cada público (próxima etapa).
 
 ## Funcionalidades planejadas
 
 **Fase 1 — Site institucional**
 - [ ] Início: apresentação, destaques e chamada para orçamento
-- [ ] Serviços: instalação e manutenção de irrigação em jardins residenciais
-- [ ] Como funciona: etapas do atendimento, do orçamento à manutenção
+- [ ] Serviços: separados em duas categorias, como na página de projetos (veja "Posicionamento" abaixo)
+- [ ] Como funciona: etapas genéricas do atendimento (conversa, visita e projeto, orçamento, instalação), que servem aos dois públicos
 - [ ] Projetos: fotos e vídeos incorporados do YouTube de projetos já realizados (sem fotos de "antes e depois")
 - [ ] Produtos: vitrine por categoria (irrigação, bombas, material hidráulico), sem preços, com botão "Consultar no WhatsApp"
 - [ ] Marcas com que trabalhamos
@@ -30,7 +54,7 @@ A empresa está se mudando para uma **nova loja**, e este projeto acompanha essa
 - [ ] "Solicite um orçamento" em destaque no topo, na página inicial e em página própria, enviado por e-mail (com WhatsApp e telefones como alternativa)
 
 **Fase 2 — Inteligência artificial**
-- [ ] Assistente de orçamento com IA: conversa com o cliente, coleta as informações do jardim e envia um resumo pronto para a equipe
+- [ ] Assistente de orçamento com IA: conversa com o cliente, coleta as informações do projeto (agrícola ou residencial) e envia um resumo pronto para a equipe
 
 **Ideias futuras**
 - [ ] Dicas de irrigação (artigos curtos para ajudar o site a aparecer no Google)
@@ -99,6 +123,8 @@ As fotos ficam em `public/images/projetos/<pasta-do-projeto>/` (ex.: `viveiro-eu
 - Fotos reais da fachada, para substituir as imagens provisórias do projeto arquitetônico
 - Fotos e vídeos dos projetos realizados
 - Descrições dos 9 projetos (hoje estão "A CONFIRMAR")
+- Descrições dos serviços: hoje são textos técnicos genéricos, que precisam ser revisados pela empresa
+- Primeira foto do Viveiro de Mudas de Eucalipto (imagem principal da página inicial)
 - Principais produtos e marcas representadas
 - Área de atendimento para instalações
 - Autorização dos clientes para mostrar fotos e vídeos dos projetos
