@@ -61,9 +61,16 @@ Onde isso aparece no site:
 
 **Lançamento**
 - [ ] Publicação em endereço provisório para testes
+  - O site fica **bloqueado para buscadores** enquanto a variável `ALLOW_INDEXING` não estiver ativada: todas as páginas têm a meta `noindex`, que pede ao Google para não mostrá-las nos resultados. Assim o endereço provisório não aparece no Google. Não é preciso fazer nada para isso: é o padrão.
+  - O `/robots.txt` fica **sempre liberado** (`Allow: /`), de propósito. Se ele bloqueasse o acesso, o Google não conseguiria abrir as páginas para ler o `noindex`, e ainda poderia listar o endereço (sem conteúdo) caso alguém publicasse um link para ele. Liberando o acesso, o Google lê o `noindex` e não mostra as páginas.
 - [ ] Aprovação do conteúdo pela empresa
 - [ ] Apontamento do domínio irrigadantas.com.br para o novo site
   - ⚠️ Na configuração de DNS, alterar **apenas os registros do site** (A/CNAME) para a Vercel e **manter os registros de e-mail (MX)** como estão, para não interromper o e-mail da empresa (irrigadantas@irrigadantas.com.br)
+- [ ] Liberar o site para o Google (no dia do lançamento, depois que o domínio estiver apontado)
+  1. Na Vercel: Project Settings > Environment Variables > adicionar `ALLOW_INDEXING` com o valor `true`, só no ambiente **Production**
+  2. Fazer um novo deploy (Deployments > ⋯ > **Redeploy**). A variável só vale a partir do próximo deploy, porque é lida durante o build
+  3. Conferir no código da página inicial (Ctrl+U no navegador): a linha `<meta name="robots"` deve dizer `index, follow` (antes do lançamento, diz `noindex, nofollow`)
+  4. O `/robots.txt` não muda: continua com `Allow: /`, antes e depois do lançamento
 - [ ] Criação/atualização do Perfil da Empresa no Google
 
 ## Processo de desenvolvimento com IA

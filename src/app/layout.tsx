@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { siteConfig } from "@/lib/site-config";
+import { allowIndexing } from "@/lib/indexing";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,6 +20,8 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  // Meta "robots" em todas as páginas: noindex até o lançamento (veja src/lib/indexing.ts).
+  robots: allowIndexing ? { index: true, follow: true } : { index: false, follow: false },
 };
 
 // "Moldura" de todas as páginas: cabeçalho, conteúdo, rodapé e botão do WhatsApp.
