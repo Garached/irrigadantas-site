@@ -6,10 +6,14 @@ import "server-only";
 import { Resend } from "resend";
 import { z } from "zod";
 import {
-  quoteFields,
+  extraFieldInfo,
+  extraFieldsByGroup,
+  projectTypeGroup,
+  projectTypeLabel,
   quoteSchema,
-  serviceLabel,
+  readQuoteForm,
   type QuoteFormState,
+  type QuoteInput,
 } from "@/lib/quote-schema";
 
 // Nome do campo invisível que só robôs de spam preenchem.
@@ -22,9 +26,8 @@ export async function sendQuote(
   _prevState: QuoteFormState,
   formData: FormData,
 ): Promise<QuoteFormState> {
-  const values = Object.fromEntries(
-    quoteFields.map((field) => [field, String(formData.get(field) ?? "")]),
-  );
+  // Só as perguntas extras do grupo escolhido são aceitas (veja readQuoteForm).
+  const values = readQuoteForm(formData);
 
   // Robô detectado: fingimos sucesso e não enviamos nada.
   if (String(formData.get(HONEYPOT_FIELD) ?? "") !== "") {
@@ -53,25 +56,12 @@ export async function sendQuote(
   }
 
   const data = parsed.data;
-  const text = [
-    "Novo pedido de orçamento pelo site",
-    "",
-    `Nome: ${data.nome}`,
-    `Telefone/WhatsApp: ${data.telefone}`,
-    `E-mail: ${data.email || "(não informado)"}`,
-    `Cidade: ${data.cidade}`,
-    `Serviço: ${serviceLabel(data.servico)}`,
-    "",
-    "Mensagem:",
-    data.mensagem,
-  ].join("\n");
-
   const resend = new Resend(apiKey);
   const { error } = await resend.emails.send({
     from,
     to,
-    subject: `Orçamento: ${serviceLabel(data.servico)} — ${data.nome}`,
-    text,
+    subject: `Orçamento: ${projectTypeLabel(data.tipoProjeto)} — ${data.nome}`,
+    text: quoteEmailText(data),
     // "Responder" no e-mail já vai direto para o cliente.
     replyTo: data.email || undefined,
   });
@@ -82,4 +72,27 @@ export async function sendQuote(
   }
 
   return { status: "success", message: "Pedido enviado! Em breve entraremos em contato." };
+}
+
+// Texto do e-mail. As perguntas extras do grupo aparecem sempre (com "(não informado)"
+// quando vazias), para a equipe saber que a pergunta foi feita.
+function quoteEmailText(data: QuoteInput) {
+  const group = projectTypeGroup(data.tipoProjeto);
+  const extras = group ? extraFieldsByGroup[group.id] : [];
+
+  return [
+    "Novo pedido de orçamento pelo site",
+    "",
+    `Nome: ${data.nome}`,
+    `Telefone/WhatsApp: ${data.telefone}`,
+    `E-mail: ${data.email || "(não informado)"}`,
+    `Cidade: ${data.cidade}`,
+    "",
+    `Tipo de projeto: ${projectTypeLabel(data.tipoProjeto)}`,
+    `Categoria: ${group?.label ?? "(desconhecida)"}`,
+    ...extras.map((field) => `${extraFieldInfo[field].label}: ${data[field] || "(não informado)"}`),
+    "",
+    "Mensagem:",
+    data.mensagem,
+  ].join("\n");
 }

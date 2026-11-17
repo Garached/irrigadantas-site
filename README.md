@@ -37,7 +37,7 @@ A loja (bombas e material hidráulico) continua atendendo os dois públicos.
 Onde isso aparece no site:
 - **Página inicial:** o destaque principal fala com produtores e empresas. A imagem principal é a primeira foto do projeto "Irrigação para Viveiro de Mudas de Eucalipto" (definido em `heroProjectSlug`, no `site-config.ts`); enquanto não houver foto, aparece um bloco cinza.
 - **Serviços:** abas "Agrícola e Produção" (aberta por padrão) e "Residencial e Comercial". A lista de serviços fica em `services`, no `site-config.ts`.
-- **Formulário de orçamento:** campo "Tipo de projeto" com perguntas diferentes para cada público (próxima etapa).
+- **Formulário de orçamento:** campo "Tipo de projeto" com perguntas diferentes para cada público (veja "Pedidos de orçamento").
 
 ## Funcionalidades planejadas
 
@@ -87,6 +87,19 @@ Este projeto é desenvolvido com o **Claude Code** como ferramenta principal. As
 ## Pedidos de orçamento
 
 Os pedidos feitos pelo formulário do site são enviados **por e-mail**, pelo serviço Resend. O e-mail que recebe os pedidos é definido na variável de ambiente `QUOTE_TO_EMAIL` (veja `.env.example`), então pode ser trocado sem mexer no código. Se o envio falhar, o site mostra o WhatsApp e os telefones da loja como alternativa.
+
+O formulário tem o campo **"Tipo de projeto"**, com as opções em três grupos. As perguntas extras aparecem conforme o grupo escolhido e são todas opcionais:
+
+| Grupo | Opções | Perguntas extras |
+|---|---|---|
+| Agrícola e Produção | os 7 serviços agrícolas | Área aproximada; Cultura / o que é produzido |
+| Residencial e Comercial | Irrigação de jardins; Jardins verticais | Tamanho aproximado do jardim |
+| Loja e outros | Bombas; Material hidráulico; Outro assunto | nenhuma |
+
+- O exemplo dentro do campo Mensagem também muda conforme o grupo.
+- Se a pessoa trocar de grupo no meio do preenchimento, as respostas do grupo anterior são descartadas. O servidor também só aceita as perguntas do grupo escolhido.
+- O e-mail traz o tipo de projeto, a categoria e as respostas extras (pergunta deixada em branco aparece como "(não informado)"). O assunto é "Orçamento: <tipo de projeto> — <nome>".
+- As opções dos grupos Agrícola e Residencial vêm da lista `services`, no `src/lib/site-config.ts`: um serviço novo ali aparece automaticamente no formulário. O grupo "Loja e outros" e as perguntas extras ficam em `src/lib/quote-schema.ts`.
 
 ## Página de projetos
 

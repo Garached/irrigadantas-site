@@ -39,11 +39,11 @@ npm run lint    # verificação de código (ESLint)
 - `src/components/ui/` — peças pequenas reutilizáveis (ButtonLink, Card, PageHeader, ProjectPhoto, YouTubeEmbed).
 - `src/components/forms/` — formulários.
 - `src/components/projects/` — página de projetos: cartões e galeria em tela cheia. As abas (`ProjectTabs`) também são usadas em `/servicos`.
-- `src/lib/site-config.ts` — **fonte única** dos dados da empresa, incluindo marcas, fotos da fachada, os serviços da página `/servicos` (`services`) e os projetos da página `/projetos` (`projects`). Serviços e projetos usam as mesmas categorias (`projectCategories`: "Agrícola e Produção" e "Residencial e Comercial").
+- `src/lib/site-config.ts` — **fonte única** dos dados da empresa, incluindo marcas, fotos da fachada, os serviços da página `/servicos` e das opções do formulário de orçamento (`services`) e os projetos da página `/projetos` (`projects`). Serviços e projetos usam as mesmas categorias (`projectCategories`: "Agrícola e Produção" e "Residencial e Comercial").
 - `src/lib/public-file.ts` — confere, no servidor, se uma foto existe em `public/` (sem foto, o site mostra um bloco cinza).
 - `public/images/projetos/<slug>/` — fotos de cada projeto, numeradas (`01.jpg`, `02.jpg`…). A primeira foto do projeto indicado em `heroProjectSlug` (hoje o Viveiro de Mudas de Eucalipto) é a imagem principal da página inicial.
 - `public/images/loja/` — fotos da fachada da nova loja (projeto arquitetônico).
-- `src/lib/quote-schema.ts` — campos e regras do formulário de orçamento.
+- `src/lib/quote-schema.ts` — campos e regras do formulário de orçamento. O campo "Tipo de projeto" (`tipoProjeto`) é montado a partir de `services` (grupos Agrícola e Residencial) mais o grupo "Loja e outros", definido ali. Cada grupo tem perguntas extras opcionais (`extraFieldsByGroup`) e um exemplo próprio no campo Mensagem; o servidor aceita só as perguntas do grupo escolhido (`readQuoteForm`). Campo novo no formulário também precisa entrar no e-mail (`quoteEmailText`, em `actions.ts`).
 
 ## Convenções de código
 
