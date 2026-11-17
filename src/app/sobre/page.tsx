@@ -14,7 +14,7 @@ export default function SobrePage() {
       <section className="mx-auto max-w-3xl space-y-4 px-4 py-12 text-lg text-zinc-700">
         <p>
           A Irriga Dantas é uma loja de irrigação, bombas e material hidráulico em Araraquara (SP),
-          que atende clientes residenciais e profissionais.
+          que atende produtores, empresas e clientes residenciais.
         </p>
         <p>
           Agora estamos em um novo endereço, com uma loja nova para receber você ainda melhor.

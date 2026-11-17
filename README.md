@@ -12,15 +12,39 @@ A empresa está se mudando para uma **nova loja**, e este projeto acompanha essa
 
 - Apresentar a empresa de forma moderna, rápida e pensada para celular
 - Centralizar informações corretas e atualizadas (novo endereço, telefone, WhatsApp, horários)
-- Gerar contatos e pedidos de orçamento, principalmente para irrigação residencial de jardins
+- Gerar contatos e pedidos de orçamento, principalmente de **projetos agrícolas e de produção** (viveiros, estufas, fertirrigação, casas de bombas), mantendo o **atendimento residencial e comercial** (jardins) como segunda linha
 - Manter o domínio irrigadantas.com.br
+
+## Posicionamento
+
+O site foi criado inicialmente com foco em irrigação de jardins residenciais, mas o principal público da empresa hoje são **projetos agrícolas e de produção**, como mostra a página `/projetos`. Por isso, o site fala primeiro com produtores e empresas, e o atendimento residencial e comercial aparece como segunda linha.
+
+**Agrícola e Produção** (público principal)
+- Irrigação para viveiros
+- Nebulização para estufas
+- Microaspersão para estufas
+- Sistemas de filtragem e abastecimento
+- Montagem de tanques de lona
+- Casas de bombas e automação
+- Fertirrigação
+
+**Residencial e Comercial**
+- Irrigação de jardins
+- Jardins verticais
+
+A loja (bombas e material hidráulico) continua atendendo os dois públicos.
+
+Onde isso aparece no site:
+- **Página inicial:** o destaque principal fala com produtores e empresas. A imagem principal é a primeira foto do projeto "Irrigação para Viveiro de Mudas de Eucalipto" (definido em `heroProjectSlug`, no `site-config.ts`); enquanto não houver foto, aparece um bloco cinza.
+- **Serviços:** abas "Agrícola e Produção" (aberta por padrão) e "Residencial e Comercial". A lista de serviços fica em `services`, no `site-config.ts`.
+- **Formulário de orçamento:** campo "Tipo de projeto" com perguntas diferentes para cada público (veja "Pedidos de orçamento").
 
 ## Funcionalidades planejadas
 
 **Fase 1 — Site institucional**
 - [ ] Início: apresentação, destaques e chamada para orçamento
-- [ ] Serviços: instalação e manutenção de irrigação em jardins residenciais
-- [ ] Como funciona: etapas do atendimento, do orçamento à manutenção
+- [ ] Serviços: separados em duas categorias, como na página de projetos (veja "Posicionamento" abaixo)
+- [ ] Como funciona: etapas genéricas do atendimento (conversa, visita e projeto, orçamento, instalação), que servem aos dois públicos
 - [ ] Projetos: fotos e vídeos incorporados do YouTube de projetos já realizados (sem fotos de "antes e depois")
 - [ ] Produtos: vitrine por categoria (irrigação, bombas, material hidráulico), sem preços, com botão "Consultar no WhatsApp"
 - [ ] Marcas com que trabalhamos
@@ -30,7 +54,7 @@ A empresa está se mudando para uma **nova loja**, e este projeto acompanha essa
 - [ ] "Solicite um orçamento" em destaque no topo, na página inicial e em página própria, enviado por e-mail (com WhatsApp e telefones como alternativa)
 
 **Fase 2 — Inteligência artificial**
-- [ ] Assistente de orçamento com IA: conversa com o cliente, coleta as informações do jardim e envia um resumo pronto para a equipe
+- [ ] Assistente de orçamento com IA: conversa com o cliente, coleta as informações do projeto (agrícola ou residencial) e envia um resumo pronto para a equipe
 
 **Ideias futuras**
 - [ ] Dicas de irrigação (artigos curtos para ajudar o site a aparecer no Google)
@@ -63,6 +87,19 @@ Este projeto é desenvolvido com o **Claude Code** como ferramenta principal. As
 ## Pedidos de orçamento
 
 Os pedidos feitos pelo formulário do site são enviados **por e-mail**, pelo serviço Resend. O e-mail que recebe os pedidos é definido na variável de ambiente `QUOTE_TO_EMAIL` (veja `.env.example`), então pode ser trocado sem mexer no código. Se o envio falhar, o site mostra o WhatsApp e os telefones da loja como alternativa.
+
+O formulário tem o campo **"Tipo de projeto"**, com as opções em três grupos. As perguntas extras aparecem conforme o grupo escolhido e são todas opcionais:
+
+| Grupo | Opções | Perguntas extras |
+|---|---|---|
+| Agrícola e Produção | os 7 serviços agrícolas | Área aproximada; Cultura / o que é produzido |
+| Residencial e Comercial | Irrigação de jardins; Jardins verticais | Tamanho aproximado do jardim |
+| Loja e outros | Bombas; Material hidráulico; Outro assunto | nenhuma |
+
+- O exemplo dentro do campo Mensagem também muda conforme o grupo.
+- Se a pessoa trocar de grupo no meio do preenchimento, as respostas do grupo anterior são descartadas. O servidor também só aceita as perguntas do grupo escolhido.
+- O e-mail traz o tipo de projeto, a categoria e as respostas extras (pergunta deixada em branco aparece como "(não informado)"). O assunto é "Orçamento: <tipo de projeto> — <nome>".
+- As opções dos grupos Agrícola e Residencial vêm da lista `services`, no `src/lib/site-config.ts`: um serviço novo ali aparece automaticamente no formulário. O grupo "Loja e outros" e as perguntas extras ficam em `src/lib/quote-schema.ts`.
 
 ## Página de projetos
 
@@ -99,6 +136,8 @@ As fotos ficam em `public/images/projetos/<pasta-do-projeto>/` (ex.: `viveiro-eu
 - Fotos reais da fachada, para substituir as imagens provisórias do projeto arquitetônico
 - Fotos e vídeos dos projetos realizados
 - Descrições dos 9 projetos (hoje estão "A CONFIRMAR")
+- Descrições dos serviços: hoje são textos técnicos genéricos, que precisam ser revisados pela empresa
+- Primeira foto do Viveiro de Mudas de Eucalipto (imagem principal da página inicial)
 - Principais produtos e marcas representadas
 - Área de atendimento para instalações
 - Autorização dos clientes para mostrar fotos e vídeos dos projetos

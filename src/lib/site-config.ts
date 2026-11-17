@@ -8,7 +8,7 @@
 export const siteConfig = {
   name: "Irriga Dantas",
   description:
-    "Irrigação, bombas e material hidráulico em Araraquara (SP). Instalação de irrigação para jardins residenciais.",
+    "Irrigação para viveiros, estufas e produção agrícola em Araraquara (SP) e região: fertirrigação, casas de bombas, filtragem e abastecimento. Também irrigação de jardins, bombas e material hidráulico.",
   url: "https://irrigadantas.com.br",
 
   contact: {
@@ -119,6 +119,10 @@ export type Project = {
   photos: string[]; // nomes dos arquivos, ex.: ["01.jpg", "02.jpg"]
 };
 
+// Projeto cuja PRIMEIRA foto (da lista "photos") é a imagem principal da página inicial.
+// Enquanto o projeto não tiver fotos, a página inicial mostra um bloco cinza no lugar.
+export const heroProjectSlug = "viveiro-eucalipto";
+
 // COMO ADICIONAR FOTOS
 // 1. Coloque as fotos na pasta do projeto: public/images/projetos/<slug>/
 //    numeradas com 2 dígitos: 01.jpg, 02.jpg, 03.jpg...
@@ -196,5 +200,84 @@ export const projects: Project[] = [
     category: "residencial",
     description: "A CONFIRMAR",
     photos: [],
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Página /servicos (e, na 2ª etapa, as opções do formulário de orçamento)
+// ---------------------------------------------------------------------------
+// Usa as mesmas categorias da página /projetos.
+
+export type Service = {
+  slug: string;
+  title: string;
+  category: ProjectCategory;
+  description: string;
+};
+
+// TODO: descrições técnicas genéricas (explicam o serviço, não a empresa).
+// Revisar com a Irriga Dantas antes do lançamento (README, "A confirmar").
+export const services: Service[] = [
+  // Agrícola e Produção
+  {
+    slug: "irrigacao-viveiros",
+    title: "Irrigação para viveiros",
+    category: "agricola",
+    description:
+      "Sistemas de irrigação para viveiros de mudas, dimensionados para distribuir a água de forma uniforme em toda a área de produção.",
+  },
+  {
+    slug: "nebulizacao-estufas",
+    title: "Nebulização para estufas",
+    category: "agricola",
+    description:
+      "Nebulizadores que formam uma névoa fina para controlar a umidade e ajudar a reduzir a temperatura dentro das estufas.",
+  },
+  {
+    slug: "microaspersao-estufas",
+    title: "Microaspersão para estufas",
+    category: "agricola",
+    description:
+      "Microaspersores que distribuem a água em gotas pequenas e com baixa vazão, indicados para a irrigação de culturas em estufas.",
+  },
+  {
+    slug: "filtragem-abastecimento",
+    title: "Sistemas de filtragem e abastecimento",
+    category: "agricola",
+    description:
+      "Filtros e sistemas de abastecimento que levam água limpa até a irrigação, protegendo tubulações e emissores contra entupimentos.",
+  },
+  {
+    slug: "tanques-lona",
+    title: "Montagem de tanques de lona",
+    category: "agricola",
+    description: "Montagem de tanques de lona para armazenar a água usada na irrigação e na produção.",
+  },
+  {
+    slug: "casas-bombas-automacao",
+    title: "Casas de bombas e automação",
+    category: "agricola",
+    description:
+      "Bombas, quadros de comando e automação para acionar e controlar a irrigação nos horários e setores programados.",
+  },
+  {
+    slug: "fertirrigacao",
+    title: "Fertirrigação",
+    category: "agricola",
+    description: "Aplicação de fertilizantes dissolvidos na água da irrigação, de forma dosada e distribuída por todo o sistema.",
+  },
+
+  // Residencial e Comercial
+  {
+    slug: "irrigacao-jardins",
+    title: "Irrigação de jardins",
+    category: "residencial",
+    description: "Irrigação automática para jardins de casas, condomínios e empresas, com rega programada.",
+  },
+  {
+    slug: "jardins-verticais",
+    title: "Jardins verticais",
+    category: "residencial",
+    description: "Irrigação por gotejamento para jardins verticais em ambientes internos e externos.",
   },
 ];

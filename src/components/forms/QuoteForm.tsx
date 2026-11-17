@@ -1,17 +1,38 @@
 "use client";
 
-// Client Component: mostra "Enviando...", erros e a mensagem de sucesso
-// sem recarregar a página. O envio de verdade acontece no servidor (sendQuote).
-import { useActionState } from "react";
+// Client Component: mostra "Enviando...", erros, a mensagem de sucesso e as perguntas
+// de cada tipo de projeto sem recarregar a página. O envio de verdade acontece no servidor (sendQuote).
+import { useActionState, useState } from "react";
 import { sendQuote } from "@/app/orcamento/actions";
 import { ContactAlternatives } from "@/components/sections/ContactAlternatives";
-import { initialQuoteState, serviceOptions, type QuoteField } from "@/lib/quote-schema";
+import {
+  extraFieldInfo,
+  extraFieldsByGroup,
+  initialQuoteState,
+  messagePlaceholders,
+  projectTypeGroup,
+  projectTypeGroups,
+  type QuoteField,
+} from "@/lib/quote-schema";
 
 const inputClass =
   "mt-1 block w-full rounded-lg border border-zinc-300 px-3 py-2 text-zinc-900 focus:border-brand-600 focus:ring-2 focus:ring-brand-100 focus:outline-none aria-[invalid=true]:border-red-500";
 
 export function QuoteForm() {
   const [state, formAction, pending] = useActionState(sendQuote, initialQuoteState);
+
+  // Tipo de projeto escolhido: decide quais perguntas extras aparecem.
+  const [projectType, setProjectType] = useState(state.values?.tipoProjeto ?? "");
+
+  // A cada resposta do servidor, o formulário é montado de novo (nova "key"), para os campos
+  // voltarem com o que a pessoa digitou (state.values) depois que o React limpa o formulário.
+  const [formKey, setFormKey] = useState(0);
+  const [lastState, setLastState] = useState(state);
+  if (state !== lastState) {
+    setLastState(state);
+    setFormKey((k) => k + 1);
+    setProjectType(state.values?.tipoProjeto ?? "");
+  }
 
   if (state.status === "success") {
     return (
@@ -20,6 +41,9 @@ export function QuoteForm() {
       </div>
     );
   }
+
+  const group = projectTypeGroup(projectType);
+  const extraFields = group ? extraFieldsByGroup[group.id] : [];
 
   const error = (field: QuoteField) => state.errors?.[field]?.[0];
   const fieldProps = (field: QuoteField) => ({
@@ -38,7 +62,7 @@ export function QuoteForm() {
     ) : null;
 
   return (
-    <form action={formAction} className="space-y-4">
+    <form key={formKey} action={formAction} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="nome" className="font-medium">Nome *</label>
@@ -63,19 +87,48 @@ export function QuoteForm() {
       </div>
 
       <div>
-        <label htmlFor="servico" className="font-medium">Tipo de serviço *</label>
-        <select required {...fieldProps("servico")} defaultValue={state.values?.servico ?? ""}>
+        <label htmlFor="tipoProjeto" className="font-medium">Tipo de projeto *</label>
+        <select
+          required
+          {...fieldProps("tipoProjeto")}
+          defaultValue={state.values?.tipoProjeto ?? ""}
+          onChange={(e) => setProjectType(e.target.value)}
+        >
           <option value="" disabled>
             Selecione...
           </option>
-          {serviceOptions.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
+          {projectTypeGroups.map((g) => (
+            <optgroup key={g.id} label={g.label}>
+              {g.options.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </optgroup>
           ))}
         </select>
-        {errorText("servico")}
+        {errorText("tipoProjeto")}
       </div>
+
+      {/* Perguntas extras do grupo escolhido (opcionais). Trocar de grupo remove as do grupo anterior. */}
+      {extraFields.length > 0 && (
+        <div key={group?.id} className="grid gap-4 sm:grid-cols-2">
+          {extraFields.map((field) => (
+            <div key={field}>
+              <label htmlFor={field} className="font-medium">
+                {extraFieldInfo[field].label} <span className="font-normal text-zinc-500">(opcional)</span>
+              </label>
+              <input
+                type="text"
+                maxLength={100}
+                placeholder={extraFieldInfo[field].placeholder}
+                {...fieldProps(field)}
+              />
+              {errorText(field)}
+            </div>
+          ))}
+        </div>
+      )}
 
       <div>
         <label htmlFor="mensagem" className="font-medium">Mensagem *</label>
@@ -83,7 +136,7 @@ export function QuoteForm() {
           rows={5}
           required
           minLength={10}
-          placeholder="Ex.: tamanho aproximado do jardim, se já existe algum ponto de água, bairro..."
+          placeholder={messagePlaceholders[group?.id ?? ""]}
           {...fieldProps("mensagem")}
         />
         {errorText("mensagem")}

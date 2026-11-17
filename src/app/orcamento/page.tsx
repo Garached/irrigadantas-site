@@ -5,7 +5,8 @@ import { ContactAlternatives } from "@/components/sections/ContactAlternatives";
 
 export const metadata: Metadata = {
   title: "Solicite um orçamento",
-  description: "Peça um orçamento de irrigação para o seu jardim, bombas ou material hidráulico.",
+  description:
+    "Peça um orçamento de irrigação para viveiros, estufas e produção agrícola, irrigação de jardins, bombas ou material hidráulico.",
 };
 
 export default function OrcamentoPage() {

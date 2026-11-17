@@ -1,18 +1,19 @@
 import { Card } from "@/components/ui/Card";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 
+// Agrícola primeiro (público principal); residencial em segundo; a loja por último.
 const highlights = [
   {
-    title: "Irrigação de jardins",
-    text: "Projeto e instalação de irrigação automática para jardins residenciais.",
+    title: "Agrícola e Produção",
+    text: "Irrigação para viveiros, nebulização e microaspersão para estufas, filtragem e abastecimento, tanques de lona, casas de bombas, automação e fertirrigação.",
   },
   {
-    title: "Bombas",
-    text: "Bombas para poços, piscinas, pressurização e outras aplicações.",
+    title: "Residencial e Comercial",
+    text: "Irrigação automática para jardins e jardins verticais.",
   },
   {
-    title: "Material hidráulico",
-    text: "Tubos, conexões, registros e tudo para a sua instalação.",
+    title: "Bombas e material hidráulico",
+    text: "Bombas, tubos, conexões, registros e tudo para a sua instalação.",
   },
 ];
 
